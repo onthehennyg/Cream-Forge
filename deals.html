@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deals — Crema Forge</title>
+  <link rel="stylesheet" href="../style.css">
+  <script>
+    async function loadDeals() {
+      try {
+        const res = await fetch('deals.json');
+        const data = await res.json();
+        const list = document.getElementById('deal-list');
+        list.innerHTML = '';
+        data.deals.forEach(item => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href="${item.link}" rel="nofollow sponsored">${item.title}</a> <small class="muted">(${item.source})</small>`;
+          list.appendChild(li);
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', loadDeals);
+  </script>
+</head>
+<body>
+  <header>
+    <img src="../assets/logo.svg" alt="Crema Forge logo" />
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="../deals.html">Deals</a>
+      <a href="blog/index.html">Blog</a>
+      <a href="../disclaimer.html">Disclosure</a>
+      <a href="../privacy.html">Privacy</a>
+    </nav>
+  </header>
+  <main>
+    <h1>Latest Deals</h1>
+    <ul id="deal-list" class="list">
+      <li>Loading…</li>
+    </ul>
+    <p><small class="muted">Always check stock and price at the retailer’s site.</small></p>
+  </main>
+  <footer>&copy; 2025 Crema Forge.</footer>
+</body>
+</html>

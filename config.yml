@@ -1,0 +1,10 @@
+# Replace with feeds you have permission to use.
+# Examples (verify ToS): retailer newsrooms, brand blogs, or deal sites that allow linking.
+max_items: 30
+feeds:
+  - name: Example Retailer
+    rss: https://example.com/feed
+    source_label: Example
+    link_rules:
+      - match_prefix: "https://example.com/"
+        append_query: "affid=YOURID"
