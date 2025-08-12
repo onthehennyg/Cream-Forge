@@ -1,0 +1,25 @@
+name: Refresh Deals
+on:
+  schedule:
+    - cron: "0 21 * * *"   # Daily at 07:00 AEST (21:00 UTC previous day)
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r bot/requirements.txt
+      - run: python bot/deal_bot.py
+      - name: Commit changes
+        run: |
+          git config user.name "crema-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add site/deals.json site/deals.html
+          git commit -m "chore: refresh deals" || echo "No changes"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
