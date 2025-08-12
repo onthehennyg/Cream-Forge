@@ -1,5 +1,9 @@
 name: Refresh Deals
+on:name: Refresh Deals
 on:
+  workflow_dispatch:    # 👈 This enables the manual Run workflow button
+  schedule:
+    - cron: "0 21 * * *" # Daily at 07:00 AEST
   schedule:
     - cron: "0 21 * * *"   # Daily at 07:00 AEST (21:00 UTC previous day)
   workflow_dispatch:
